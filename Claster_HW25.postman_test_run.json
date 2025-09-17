@@ -1,0 +1,312 @@
+{
+	"id": "8252dbfd-4ace-4521-af68-571ef19385b7",
+	"name": "Claster HW25",
+	"timestamp": "2025-09-17T22:43:30.223Z",
+	"collection_id": "21371444-f95b1313-c604-4136-bf9f-940fff6d0ac2",
+	"folder_id": 0,
+	"environment_id": "21371444-a07894f3-d802-4d13-9fc5-f5270b664731",
+	"totalPass": 11,
+	"delay": "100",
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-09-17T22:42:36.781Z",
+	"totalFail": 5,
+	"results": [
+		{
+			"id": "5b358a1d-53a8-40b4-b766-48c554772f2f",
+			"name": "Get request movies",
+			"url": "http://localhost:3000/api/movies",
+			"time": 31145,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Первые 10 документов содержат genres": true,
+				"Все документы содержат genres": false,
+				"Все документы содержат languages": false,
+				"Все документы содержат plot ≤ 300 символов": false
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Первые 10 документов содержат genres": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Все документы содержат genres": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Все документы содержат languages": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Все документы содержат plot ≤ 300 символов": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				31145
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Первые 10 документов содержат genres": true,
+					"Все документы содержат genres": false,
+					"Все документы содержат languages": false,
+					"Все документы содержат plot ≤ 300 символов": false
+				}
+			]
+		},
+		{
+			"id": "cb8ab5bf-52d0-4e50-b21e-59e7724d4f0b",
+			"name": "Get request movies filter by genres",
+			"url": "http://localhost:3000/api/movies/search/query?genres=Drama",
+			"time": 18260,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Первые 10 документов содержат genres": true,
+				"Все документы содержат genres": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Первые 10 документов содержат genres": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Все документы содержат genres": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				18260
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Первые 10 документов содержат genres": true,
+					"Все документы содержат genres": true
+				}
+			]
+		},
+		{
+			"id": "0acc1a27-9911-4355-ac04-5cd9dbc3d1f8",
+			"name": "Post request create movies",
+			"url": "http://localhost:3000/api/movies",
+			"time": 127,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Документ має _id": true,
+				"Документ містить назву фільму": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Документ має _id": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Документ містить назву фільму": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				127
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Документ має _id": true,
+					"Документ містить назву фільму": true
+				}
+			]
+		},
+		{
+			"id": "54cb95c2-0f43-434c-9b84-9bc76c6d7d75",
+			"name": "Get request movies by ID",
+			"url": "http://localhost:3000/api/movies/68cb39909a9fc4d22c55ab9b",
+			"time": 61,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Поле plot не довше 300 символів": true,
+				"Отриманий документ має правильний ID": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Поле plot не довше 300 символів": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Отриманий документ має правильний ID": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				61
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Поле plot не довше 300 символів": true,
+					"Отриманий документ має правильний ID": true
+				}
+			]
+		},
+		{
+			"id": "cb6ada8e-c1a2-480a-a366-5b40a33e5b79",
+			"name": "Put request movies change",
+			"url": "http://localhost:3000/api/movies/68cb39909a9fc4d22c55ab9b",
+			"time": 57,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 201": false
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				57
+			],
+			"allTests": [
+				{
+					"Status code is 201": false
+				}
+			]
+		},
+		{
+			"id": "95e86c98-af61-4122-89c3-4e748411c4bf",
+			"name": "Get request movies by ID 2",
+			"url": "http://localhost:3000/api/movies/68cb39909a9fc4d22c55ab9b",
+			"time": 54,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 201": false
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				54
+			],
+			"allTests": [
+				{
+					"Status code is 201": false
+				}
+			]
+		},
+		{
+			"id": "b16bf3a3-e340-4834-a932-aa1c9ea1bc81",
+			"name": "Delete request movies by ID",
+			"url": "http://localhost:3000/api/movies/68cb39909a9fc4d22c55ab9b",
+			"time": 58,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				58
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "26c09927-cd96-468f-91b0-d03c230d9268",
+			"name": "Delete request movies by ID Check",
+			"url": "http://localhost:3000/api/movies/68cb39909a9fc4d22c55ab9b",
+			"time": 53,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				53
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 49815,
+	"collection": {
+		"requests": [
+			{
+				"id": "5b358a1d-53a8-40b4-b766-48c554772f2f",
+				"method": "GET"
+			},
+			{
+				"id": "cb8ab5bf-52d0-4e50-b21e-59e7724d4f0b",
+				"method": "GET"
+			},
+			{
+				"id": "0acc1a27-9911-4355-ac04-5cd9dbc3d1f8",
+				"method": "POST"
+			},
+			{
+				"id": "54cb95c2-0f43-434c-9b84-9bc76c6d7d75",
+				"method": "GET"
+			},
+			{
+				"id": "cb6ada8e-c1a2-480a-a366-5b40a33e5b79",
+				"method": "PUT"
+			},
+			{
+				"id": "95e86c98-af61-4122-89c3-4e748411c4bf",
+				"method": "GET"
+			},
+			{
+				"id": "b16bf3a3-e340-4834-a932-aa1c9ea1bc81",
+				"method": "DELETE"
+			},
+			{
+				"id": "26c09927-cd96-468f-91b0-d03c230d9268",
+				"method": "DELETE"
+			}
+		]
+	}
+}

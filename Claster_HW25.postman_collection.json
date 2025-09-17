@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "f95b1313-c604-4136-bf9f-940fff6d0ac2",
+		"name": "Claster HW25",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21371444",
+		"_collection_link": "https://team22-2651.postman.co/workspace/QA_PRO_2025~b41a6a19-868b-4026-a875-c56e5cd1ab8c/collection/21371444-f95b1313-c604-4136-bf9f-940fff6d0ac2?action=share&source=collection_link&creator=21371444"
+	},
+	"item": [
+		{
+			"name": "Get request movies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.status.code === 500){\r",
+							"    throw new Error(\"Connect Failed\")\r",
+							"}\r",
+							"\r",
+							"\r",
+							"if (pm.response.code === 200) {\r",
+							"    let jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Первые 10 документов содержат genres\", function () {\r",
+							"        jsonData.slice(0, 10).forEach(doc => {\r",
+							"            pm.expect(doc).to.have.property(\"genres\");\r",
+							"        });\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"\r",
+							"if (pm.response.code === 200) { let jsonData = pm.response.json(); pm.test(\"Все документы содержат genres\", function () { jsonData.forEach(doc => { pm.expect(doc).to.have.property(\"genres\"); }); }); }\r",
+							"\r",
+							"if (pm.response.code === 200) { let jsonData = pm.response.json(); pm.test(\"Все документы содержат languages\", function () { jsonData.forEach(doc => { pm.expect(doc).to.have.property(\"languages\"); }); }); }\r",
+							"\r",
+							"\r",
+							"if (pm.response.code === 200) {\r",
+							"    let jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Все документы содержат plot ≤ 300 символов\", function () {\r",
+							"        jsonData.forEach((doc, index) => {\r",
+							"            pm.expect(doc).to.have.property(\"plot\");\r",
+							"            pm.expect(doc.plot.length, `Документ #${index + 1} (${doc.title || \"без названия\"})`)\r",
+							"                .to.be.at.most(300);\r",
+							"        });\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get request movies filter by genres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.status.code === 500){\r",
+							"    throw new Error(\"Connect Failed\")\r",
+							"}\r",
+							"\r",
+							"\r",
+							"if (pm.response.code === 200) {\r",
+							"    let jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.test(\"Первые 10 документов содержат genres\", function () {\r",
+							"        jsonData.slice(0, 10).forEach(doc => {\r",
+							"            pm.expect(doc).to.have.property(\"genres\");\r",
+							"        });\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"\r",
+							"if (pm.response.code === 200) { let jsonData = pm.response.json(); pm.test(\"Все документы содержат genres\", function () { jsonData.forEach(doc => { pm.expect(doc).to.have.property(\"genres\"); }); }); }\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/movies/search/query?genres=Drama",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies",
+						"search",
+						"query"
+					],
+					"query": [
+						{
+							"key": "genres",
+							"value": "Drama"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post request create movies",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let data = pm.response.json();\r",
+							"pm.environment.set(\"movieId\", data._id);\r",
+							"console.log(\"Созданный фильм id:\", data._id);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.status.code === 500){\r",
+							"    throw new Error(\"Connect Failed\")\r",
+							"}\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Документ має _id\", function () {\r",
+							"    pm.expect(jsonData).to.have.property(\"_id\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Документ містить назву фільму\", function () {\r",
+							"    pm.expect(jsonData).to.have.property(\"title\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n  \"plot\": \"A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.\",\r\n  \"genres\": [\r\n    \"Adventure\",\r\n    \"Drama\",\r\n    \"Sci-Fi\"\r\n  ],\r\n  \"runtime\": 169,\r\n  \"cast\": [\r\n    \"Matthew McConaughey\",\r\n    \"Anne Hathaway\",\r\n    \"Jessica Chastain\",\r\n    \"Michael Caine\"\r\n  ],\r\n  \"poster\": \"https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktNmNhMC00ZDAwLThmZTEtZTk1ZjM1ZWMwODFkXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg\",\r\n  \"title\": \"Interstellar\",\r\n  \"fullplot\": \"In Earth's future, a global crop blight and second Dust Bowl are slowly rendering the planet uninhabitable. Professor Brand, a brilliant NASA physicist, is working on plans to save mankind by transporting Earth's population to a new home via a wormhole. But first, Brand must send former NASA pilot Cooper and a team of researchers through the wormhole to find out which of three planets could be mankind's new home.\",\r\n  \"languages\": [\r\n    \"English\"\r\n  ],\r\n  \"released\": \"2014-11-07T00:00:00.000Z\",\r\n  \"directors\": [\r\n    \"Christopher Nolan\"\r\n  ],\r\n  \"rated\": \"PG-13\",\r\n  \"awards\": {\r\n    \"wins\": 44,\r\n    \"nominations\": 148,\r\n    \"text\": \"Won 1 Oscar. Another 43 wins & 148 nominations.\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get request movies by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.status.code === 500){\r",
+							"    throw new Error(\"Connect Failed\")\r",
+							"}\r",
+							"\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Поле plot не довше 300 символів\", function () {\r",
+							"    pm.expect(jsonData.plot.length).to.be.below(301);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Отриманий документ має правильний ID\", function () {\r",
+							"    pm.expect(jsonData._id).to.eql(pm.environment.get(\"movieId\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/movies/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put request movies change",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.status.code === 500){\r",
+							"    throw new Error(\"Connect Failed\")\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n  \"runtime\": 170\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/movies/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get request movies by ID 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.status.code === 500){\r",
+							"    throw new Error(\"Connect Failed\")\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/movies/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete request movies by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/movies/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete request movies by ID Check",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/movies/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
